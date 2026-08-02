@@ -22,7 +22,6 @@ ENTRIES = [
     "fontRendering/GillCalculator.class",
     "fontRendering/SegoeCalculator.class",
     "bottomBar/TimeDisplay.class",
-    "toolbar/DppmCounter.class",
 ]
 with open(os.path.join(BASE, "work", "changed_classes.txt"), encoding="utf-8") as f:
     ENTRIES += f.read().splitlines()
