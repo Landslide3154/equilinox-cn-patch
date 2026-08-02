@@ -1,0 +1,23 @@
+# ---- 可重建/大文件产物 ----
+build/
+jar/
+original/
+发布/
+
+# ---- 二进制与媒体 ----
+*.jar
+*.zip
+*.png
+*.jpg
+*.log
+*.dat
+*.class
+*.pyc
+__pycache__/
+
+# ---- 旧版补丁分发包（只保留汉化 languageSheet.csv）----
+Equilinox_CN_Patch/files/*
+!Equilinox_CN_Patch/files/languageSheet.csv
+
+# ---- 工具 ----
+.reasonix/
