@@ -1,0 +1,28 @@
+/*
+ * Decompiled with CFR 0.152.
+ */
+package com.jcraft.jorbis;
+
+import com.jcraft.jorbis.Block;
+import com.jcraft.jorbis.Residue0;
+
+class Residue2
+extends Residue0 {
+    Residue2() {
+    }
+
+    @Override
+    int inverse(Block vb, Object vl, float[][] in, int[] nonzero, int ch) {
+        int i = 0;
+        i = 0;
+        while (i < ch) {
+            if (nonzero[i] != 0) break;
+            ++i;
+        }
+        if (i == ch) {
+            return 0;
+        }
+        return Residue2._2inverse(vb, vl, in, ch);
+    }
+}
+

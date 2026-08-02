@@ -1,0 +1,44 @@
+Summary for D:\code\equilinox\original\EquilinoxWindows_original.jar
+Decompiled with CFR 0.152
+
+
+com.jcraft.jorbis.DecodeExample
+----------------------------
+
+main(java.lang.String[] )
+  Unable to fully structure code
+
+
+com.jcraft.jorbis.VorbisFile
+----------------------------
+
+pcm_seek(long )
+  Unable to fully structure code
+
+
+org.lwjgl.opengl.LinuxCanvasImplementation
+----------------------------
+
+findVisualIDFromFormat(int org.lwjgl.opengl.PixelFormat )
+  Exception : org.benf.cfr.reader.util.ConfusedCFRException: Started 2 blocks at once
+
+
+org.lwjgl.opengl.LinuxDisplay
+----------------------------
+
+getGammaRampLength()
+  Loose catch block
+
+
+oggLoading.OggInputStream
+----------------------------
+
+initVorbis()
+  Unable to fully structure code
+
+
+toolbox.MyKeyboard
+----------------------------
+
+update()
+  Unable to fully structure code
