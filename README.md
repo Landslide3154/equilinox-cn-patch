@@ -17,9 +17,18 @@
 
 完整改动细节见 [docs/汉化说明.md](docs/汉化说明.md)，踩坑方法论见 [docs/AI汉化经验总结.md](docs/AI汉化经验总结.md)。
 
+## 游戏截图
+
+| | |
+|:---:|:---:|
+| ![](docs/screenshots/screenshot_1.png) | ![](docs/screenshots/screenshot_2.png) |
+| ![](docs/screenshots/screenshot_3.png) | ![](docs/screenshots/screenshot_4.png) |
+| ![](docs/screenshots/screenshot_5.png) | ![](docs/screenshots/screenshot_6.png) |
+| ![](docs/screenshots/screenshot_7.png) | ![](docs/screenshots/screenshot_8.png) |
+
 ## 快速开始（推荐）
 
-1. 从 [Releases](https://github.com/Landslide3154/equilinox-cn-patch/releases) 下载 `Equilinox汉化补丁_精简版_v6.zip`（约 4MB，只含改动文件）
+1. 从 [Releases](https://github.com/Landslide3154/equilinox-cn-patch/releases) 下载 `equilinox-cn-patch-v6.zip`（精简版补丁，只含改动文件，约 4MB）
 2. 解压 → 关闭游戏 → 双击 **安装汉化.bat**（自动查找 Steam 游戏目录，也可手动输入）
 3. 启动游戏即中文界面。恢复英文原版运行 **恢复原版.bat**
 
@@ -70,7 +79,7 @@ python work/build_package.py      # 完整版补丁 → 发布/Equilinox汉化�
 │   ├── repack.py           # 用 patch/ 合成汉化 jar
 │   └── *.java        # 重编译类源码（MyFile/TextLoader/Line/Word/TimeDisplay/GillCalculator/SegoeCalculator）
 ├── decompiled/       # 原版 jar 反编译源码（CFR，仅供学习研究）
-├── docs/             # 汉化说明、经验总结
+├── docs/             # 汉化说明、经验总结、游戏截图
 └── tools/cfr.jar     # CFR 反编译器
 ```
 
