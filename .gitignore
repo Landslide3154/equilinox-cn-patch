@@ -20,6 +20,7 @@ __pycache__/
 !patch/**/*.class
 !patch/**/*.png
 !docs/*.png
+!docs/screenshots/*.png
 
 # ---- 工具 ----
 .reasonix/
