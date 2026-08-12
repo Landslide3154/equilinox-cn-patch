@@ -1,4 +1,4 @@
-# ---- 可重建/大文件产物 ----
+# ---- 可重建/大文件产物（不入库）----
 build/
 jar/
 original/
@@ -15,9 +15,11 @@ original/
 *.pyc
 __pycache__/
 
-# ---- 旧版补丁分发包（只保留汉化 languageSheet.csv）----
-Equilinox_CN_Patch/files/*
-!Equilinox_CN_Patch/files/languageSheet.csv
+# ---- 补丁发布资产（显式跟踪，覆盖上面的忽略）----
+!patch/**
+!patch/**/*.class
+!patch/**/*.png
+!docs/*.png
 
 # ---- 工具 ----
 .reasonix/
