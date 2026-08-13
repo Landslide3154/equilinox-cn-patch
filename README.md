@@ -22,7 +22,7 @@
 
 ## 安装使用
 
-1. 从 [Releases](https://github.com/Landslide3154/equilinox-cn-patch/releases) 页面下载 `equilinox-cn-patch-v6.zip`（精简版补丁，约 4MB）
+1. 从 [Releases](https://github.com/Landslide3154/equilinox-cn-patch/releases) 页面下载 `equilinox-cn-patch-v6.zip`（补丁包，约 4MB）
 2. 解压后**关闭游戏**，双击 `安装汉化.bat`——脚本会自动查找 Steam 游戏目录，找不到时也可以手动输入
 3. 启动游戏，享受中文世界
 

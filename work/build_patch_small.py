@@ -6,7 +6,7 @@ import zipfile
 
 BASE = r"D:\code\equilinox"
 PATCH_SRC = os.path.join(BASE, "build")
-PACKAGE = os.path.join(BASE, "发布", "Equilinox汉化补丁_精简版")
+PACKAGE = os.path.join(BASE, "发布", "Equilinox汉化补丁")
 
 # files to ship in the patch folder (relative to build/)
 ENTRIES = [
@@ -36,10 +36,10 @@ def write_gbk(path, text):
 INSTALL_BAT = r"""@echo off
 chcp 936 >nul
 setlocal enabledelayedexpansion
-title Equilinox 简体中文汉化补丁 v6 - 安装（精简版）
+title Equilinox 简体中文汉化补丁 v6 - 安装
 
 echo ==================================================
-echo    Equilinox 简体中文汉化补丁 v6（精简版）
+echo    Equilinox 简体中文汉化补丁 v6
 echo    适用版本：Steam 版 Equilinox 1.7.2
 echo ==================================================
 echo.
@@ -178,7 +178,7 @@ exit /b 0
 """
 
 
-README_TXT = """Equilinox 简体中文汉化补丁 v6（精简版）
+README_TXT = """Equilinox 简体中文汉化补丁 v6
 ========================================
 
 【补丁内容】
@@ -251,12 +251,12 @@ def main():
     write_gbk(os.path.join(PACKAGE, "恢复原版.bat"), RESTORE_BAT)
     write_gbk(os.path.join(PACKAGE, "使用说明.txt"), README_TXT)
 
-    zip_path = os.path.join(BASE, "发布", "Equilinox汉化补丁_精简版_v6.zip")
+    zip_path = os.path.join(BASE, "发布", "Equilinox汉化补丁_v6.zip")
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
         for root, dirs, files in os.walk(PACKAGE):
             for fn in files:
                 full = os.path.join(root, fn)
-                rel = os.path.join("Equilinox汉化补丁_精简版", os.path.relpath(full, PACKAGE))
+                rel = os.path.join("Equilinox汉化补丁", os.path.relpath(full, PACKAGE))
                 zf.write(full, rel)
     print("patch files copied:", copied)
     print("zip:", zip_path, round(os.path.getsize(zip_path) / 1048576, 2), "MB")
