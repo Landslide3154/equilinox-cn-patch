@@ -234,6 +234,10 @@ README_TXT = """Equilinox 简体中文汉化补丁 v6
 
 
 def main():
+    # 先整体清空输出目录，避免上次构建的残留文件（如已从清单移除的类）
+    # 混进发布包——v6 曾因此把 toolbar/DppmCounter 残留打进了精简版 zip。
+    if os.path.exists(PACKAGE):
+        shutil.rmtree(PACKAGE)
     os.makedirs(PACKAGE, exist_ok=True)
     patch_dir = os.path.join(PACKAGE, "patch")
     os.makedirs(patch_dir, exist_ok=True)
