@@ -22,7 +22,7 @@ Steam 游戏 **Equilinox**（ThinMatrix）的简体中文补丁：**Java 字节�
 | 合并分片翻译 → `build/res/languageSheet.csv` | `python D:\code\Equilinox\work\merge_language.py` |
 | 生成字体（需 Pillow）→ `build/res/guis/fonts/` | `python D:\code\Equilinox\work\fontgen.py` |
 | 改写字节码常量池 → `build/**`，并重写 `changed_classes.txt` | `python D:\code\Equilinox\work\patch_classes.py` |
-| 编译要改逻辑的补丁类（`work/*.java` → `build/`） | `& "C:\Program Files\Java\jdk-25\bin\javac.exe" -encoding UTF-8 -cp "D:\code\Equilinox\jar" -d "D:\code\Equilinox\build" "D:\code\Equilinox\work\Word.java"` |
+| 编译要改逻辑的补丁类（`work/*.java` → `build/`） | `javac -encoding UTF-8 -cp "D:\code\Equilinox\jar" -d "D:\code\Equilinox\build" "D:\code\Equilinox\work\Word.java"`（用 PATH 里的 `javac`，别绑死 JDK 版本路径） |
 | 打完整 jar（本地实测用，不入库） | `python D:\code\Equilinox\work\repack.py` |
 | 产出发布目录与 zip | `python D:\code\Equilinox\work\build_patch_small.py` |
 | 发版 | `git -C D:\code\Equilinox tag vN`，再发 GitHub Release 附 zip |
