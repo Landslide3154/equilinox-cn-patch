@@ -1,7 +1,7 @@
 # AGENTS.md — Equilinox 简体中文汉化补丁
 
-给 Steam 游戏 **Equilinox 1.7.2**（ThinMatrix）做的简体中文补丁：**Java 字节码 + 资源补丁**，不重打包游戏本体。
-仓库 `Landslide3154/equilinox-cn-patch`（公开）；本地目录 `D:\code\Equilinox`；发布包命名 `equilinox-cn-patch-vN.zip`（当前序号以 `发布/` 与 Releases 为准）。
+给 Steam 游戏 **Equilinox**（ThinMatrix）做的简体中文补丁：**Java 字节码 + 资源补丁**，不重打包游戏本体。目标游戏版本见 DSH 记忆空间「本机环境与工具」。
+仓库 `Landslide3154/equilinox-cn-patch`（公开）；本地目录 `D:\code\Equilinox`；发布包文件名以 `发布/` 目录里实际产出的文件名为准（按 vN 递增，序号同样以 `发布/` 与 Releases 为准）。
 
 ## 目录职责（不要混用）
 
@@ -24,7 +24,7 @@
    - 固定随包文件：`res/languageSheet.csv`、`res/guis/fonts/{gill3,segoeUI}.{fnt,png}`、`utils/MyFile.class`、`fontRendering/{Word,Line,TextLoader,GillCalculator,SegoeCalculator}.class`、`bottomBar/TimeDisplay.class`
    - 其余按 `work/changed_classes.txt` 逐行追加——**改了新类一定要同步这个清单**，否则新补丁不会进包
 4. 字体：`work/fontgen.py` 生成 `gill3.*` / `segoeUI.*`（`.fnt` 字符表与 `.png` 图集必须配套，换字体两件一起换）
-5. 打 zip：`发布/Equilinox汉化补丁/` → `equilinox-cn-patch-vN.zip`；Release 正文模板复制 `work/release_body_vN.md` 改序号
+5. 打 zip：`发布/Equilinox汉化补丁/` → 以 `发布/` 目录里实际产出的文件名为准（vN 递增）；Release 正文模板：仓库当前没有 `work/release_body_*.md`（工作区里那份被删除且未提交），需要时先从 git 历史取回 `git show HEAD:work/release_body_v6.md > work/release_body_v6.md`，用前 `git status` 确认
 6. 发布：`git tag vN` + GitHub Release 附 zip
 
 ## 必须记住的坑
