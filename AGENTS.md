@@ -11,7 +11,7 @@
 | `decompiled/` | CFR 反编译结果（`tools/cfr.jar` 产出） | 只读参考。**已入库但版权归 ThinMatrix**，仅供学习，别当自己的代码 |
 | `patch/` | 编译好的 `.class` 补丁（按包结构，**入库**） | 由编译产出，不要手改 |
 | `build/` | 组装好的补丁树（资源 + 类），打包的输入（**不入库**） | 可重建 |
-| `work/` | 全部脚本与补丁源：`*.java` 补丁源、`patch_strings.py`、`patch_classes.py`、`repack.py`、`fontgen.py`、`merge_language.py`、`build_patch_small.py`、`changed_classes.txt`、`zh_1..4.tsv`、`release_body_vN.md` | **主战场** |
+| `work/` | 全部脚本与补丁源：`*.java` 补丁源、`patch_strings.py`、`patch_classes.py`、`repack.py`、`fontgen.py`、`merge_language.py`、`build_patch_small.py`、`changed_classes.txt`、`zh_1..4.tsv` | **主战场** |
 | `发布/` | 成品：`Equilinox汉化补丁/`（含 `安装汉化.bat`、`恢复原版.bat`、`patch/`）+ zip（**不入库**） | 由脚本产出 |
 
 `original/`、`jar/`、`build/`、`发布/` 及 `*.jar/*.zip/*.class` 都在 `.gitignore` 里——**游戏本体与发布资产不进仓库**，只有 `patch/**` 被显式反向跟踪。
@@ -36,12 +36,12 @@
 
 ## 验证
 
-- 装进 Steam 版 1.7.2 实测：主菜单 → 选项 → 图鉴/任务文本是否全中文、字体是否清晰、长文本换行是否整齐、存档名与底部时间是否汉化
+- 装进 Steam 版本地实测（目标版本见记忆空间「本机环境与工具」）：主菜单 → 选项 → 图鉴/任务文本是否全中文、字体是否清晰、长文本换行是否整齐、存档名与底部时间是否汉化
 - 跑一遍 `恢复原版.bat` 确认能还原
 - 截图放 `docs/screenshots/`（README 会引用）
 
 ## 其它
 
 - 翻译文本与构建脚本 MIT；`decompiled/` 与游戏资源版权归 ThinMatrix
-- 全仓推送到 GitHub：改完立即 `git push`，遵循全局 `~/.dsh/AGENTS.md` 第 2 节的推送原则
+- 推送：见全局 `~/.dsh/AGENTS.md` §2.1（不在此重述）
 - 会漂移的状态（当前发布序号、目标游戏版本）见 DSH 记忆空间「本机环境与工具」；本文件只放规则
