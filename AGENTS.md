@@ -25,7 +25,9 @@ Steam 游戏 **Equilinox**（ThinMatrix）的简体中文补丁：**Java 字节�
 | 编译要改逻辑的补丁类（`work/*.java` → `build/`） | `javac -encoding UTF-8 -cp "D:\code\Equilinox\jar" -d "D:\code\Equilinox\build" "D:\code\Equilinox\work\Word.java"`（用 PATH 里的 `javac`，别绑死 JDK 版本路径） |
 | 打完整 jar（本地实测用，不入库） | `python D:\code\Equilinox\work\repack.py` |
 | 产出发布目录与 zip | `python D:\code\Equilinox\work\build_patch_small.py` |
-| 发版 | `git -C D:\code\Equilinox tag vN`，再发 GitHub Release 附 zip |
+| 发版 | `git -C D:\code\Equilinox tag vN`，再发 GitHub Release 附 zip（**都要等用户明确要求**，见下） |
+
+- **推送 / 打 tag / 发 Release 必须等用户明确要求**（全局 §2，用户 2026-10-13 明确）：打包与本地自测照做，本地 `git commit` 照常，做完停下汇报「已提交、未推送」。
 
 - 仓库**没有封装编译脚本**：`javac` 一行要自己拼，`-cp` 指向 `jar/`，产出统一落到 `build/`。
 - 只有改逻辑才写 `.java`；纯文本替换改 `work/patch_strings.py` 的映射表即可。
