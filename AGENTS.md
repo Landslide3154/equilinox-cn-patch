@@ -44,11 +44,11 @@ Steam 游戏 **Equilinox**（ThinMatrix）的简体中文补丁：**Java 字节�
 
 - 发布序号 `vN` **分散硬编码在两处**，发新版必须同时改：`work/build_patch_small.py`（zip 名与包内文本）与 `work/patch_strings.py`（游戏内左下角「汉化 vN」，属字节码常量，改完要重跑 `patch_classes.py`）。
 - 产物结构：`发布/Equilinox汉化补丁/`（`安装汉化.bat`、`恢复原版.bat`、`使用说明.txt`、`patch/`）+ 同名 `_vN.zip`；实际文件名与体积以该目录当场内容为准。
-- 打 tag 与发 Release 必须等用户明确要求（通用规则见全局 `AGENTS.md`）。
+- 打 tag 与发 Release 等用户明确口令（见全局 `AGENTS.md` 的「Git 与 GitHub」节）。
 
 ## 6. 已知坑
 
-- **`work/` 下 5 个脚本把 `BASE` 写死成本机绝对路径** → 换目录、换机器克隆后必须先改，否则报路径不存在。
+- **`work/` 下的构建脚本把仓库根路径写死**（不是相对当前工作目录）→ 换目录 / 换机器克隆后必须先改，否则报路径不存在（清单见 `AGENTS.local.md` §1）。
 - 症状：游戏内文字乱码 → 先核对 `work/languageSheet.csv` 与发布包里那份的编码是否被编辑器改过 → 重新生成覆盖后实机确认。
 - 症状：新补丁类没进包 → `changed_classes.txt` 与 `build/` 实际内容不一致 → 重跑 `patch_classes.py` 或手工补清单。
 - 症状：zip 里混进旧类 → `build/` 没清干净 → 清空 `build/` 重跑整条流程。
