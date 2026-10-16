@@ -25,6 +25,9 @@ __pycache__/
 # ---- 工具 ----
 .reasonix/
 
+# 本机私有指令文件（保留仓库内显式忽略，不只靠全局 gitignore）
+AGENTS.local.md
+
 # 环境变量与凭据（绝不入库）
 .env
 .env.*
