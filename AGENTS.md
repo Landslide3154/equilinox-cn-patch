@@ -49,7 +49,7 @@ Steam 游戏 **Equilinox**（ThinMatrix）的简体中文补丁：**Java 字节�
 ## 6. 已知坑
 
 - **`work/` 下的构建脚本把仓库根路径写死**（不是相对当前工作目录）→ 换目录 / 换机器克隆后必须先改，否则报路径不存在（清单见 `AGENTS.local.md` §1）。
-- 症状：游戏内文字乱码 → 先核对 `work/languageSheet.csv` 与发布包里那份的编码是否被编辑器改过 → 重新生成覆盖后实机确认。
+- 症状：游戏内文字乱码 → 先核对 `build/res/languageSheet.csv` 与发布包里那份（`发布/Equilinox汉化补丁/patch/res/languageSheet.csv`）的编码是否被编辑器改过 → 重新生成覆盖后实机确认。
 - 症状：新补丁类没进包 → `changed_classes.txt` 与 `build/` 实际内容不一致 → 重跑 `patch_classes.py` 或手工补清单。
 - 症状：zip 里混进旧类 → `build/` 没清干净 → 清空 `build/` 重跑整条流程。
 
