@@ -17,13 +17,15 @@ Steam 游戏 **Equilinox**（ThinMatrix）的简体中文补丁：**Java 字节�
 | 合并分片翻译 → `build/res/languageSheet.csv` | `python work/merge_language.py` |
 | 生成字体（需 Pillow）→ `build/res/guis/fonts/` | `python work/fontgen.py` |
 | 改写字节码常量池 → `build/**`，并重写 `work/changed_classes.txt` | `python work/patch_classes.py` |
-| 编译要改逻辑的补丁类 | `javac -encoding UTF-8 -cp "jar" -d "build" "work/Word.java"` |
+| 把数字分组改成中文四位 → `build/toolbox/Maths.class` | `python work/patch_maths.py` |
+| 编译要改逻辑的补丁类 | `python work/compile_patched.py`（固定 `javac --release 8`，产出 major 52） |
 | 打完整 jar（本地实测用，不入库） | `python work/repack.py` |
 | 产出发布目录与 zip | `python work/build_patch_small.py` |
+| 发布前一致性校验 | `python work/verify.py` |
 
-- 仓库**没有封装编译脚本**：`javac` 一行自己拼，`-cp` 指向 `jar/`，产出统一落 `build/`。
+- 编译必须走 `compile_patched.py`：它把 `*_patched.java` 复制成真实类名，并固定 `javac --release 8`；直接 `javac work/Line_patched.java` 会因 public 类名与文件名不一致而失败，用默认 `javac` 还会产出 Java 8 加载不了的 major 69。
 - 只有改逻辑才写 `.java`；纯文本替换改 `work/patch_strings.py` 的映射表即可。
-- 脚本之间**不互相串联**：每条命令只管自己那步，改完补丁进游戏没变化多半是漏跑某步。
+- 脚本之间**不互相串联**，但顺序固定：`merge_language` → `patch_classes` → `patch_maths` → `compile_patched` → `fontgen` → `repack` / `build_patch_small` → `verify`。改完补丁进游戏没变化多半是漏跑某步。
 
 ## 3. 硬约束（必须 / 禁止）
 
@@ -42,13 +44,13 @@ Steam 游戏 **Equilinox**（ThinMatrix）的简体中文补丁：**Java 字节�
 
 ## 5. 版本与发布
 
-- 发布序号 `vN` **分散硬编码在两处**，发新版必须同时改：`work/build_patch_small.py`（zip 名与包内文本）与 `work/patch_strings.py`（游戏内左下角「汉化 vN」，属字节码常量，改完要重跑 `patch_classes.py`）。
-- 产物结构：`发布/Equilinox汉化补丁/`（`安装汉化.bat`、`恢复原版.bat`、`使用说明.txt`、`patch/`）+ 同名 `_vN.zip`；实际文件名与体积以该目录当场内容为准。
+- 发布序号集中在 `work/version.py`（`PATCH_VERSION` / `GAME_VERSION`）；`build_patch_small.py` 与 `patch_strings.py` 都从这里取。README 的下载文件名和 Release 资产名仍需手写同步。
+- 产物结构：`发布/Equilinox汉化补丁/`（`安装汉化.bat`、`恢复原版.bat`、`使用说明.txt`、`LICENSE`、`patch/`）+ 同名 `_vN.zip`；实际文件名与体积以该目录当场内容为准。
 - 打 tag 与发 Release 等用户明确口令（见全局 `AGENTS.md` 的「Git 与 GitHub」节）。
 
 ## 6. 已知坑
 
-- **`work/` 下的构建脚本把仓库根路径写死**（不是相对当前工作目录）→ 换目录 / 换机器克隆后必须先改，否则报路径不存在（清单见 `AGENTS.local.md` §1）。
+- **字体源**默认找 `C:\Windows\Fonts\方正准圆_GBK.ttf`；换机器没装该字体时用 `EQUILINOX_FONT` 指向任一中文字体，否则 `fontgen.py` 直接退出。构建脚本的仓库根路径已改为按 `__file__` 推导，不再写死盘符。
 - 症状：游戏内文字乱码 → 先核对 `build/res/languageSheet.csv` 与发布包里那份（`发布/Equilinox汉化补丁/patch/res/languageSheet.csv`）的编码是否被编辑器改过 → 重新生成覆盖后实机确认。
 - 症状：新补丁类没进包 → `changed_classes.txt` 与 `build/` 实际内容不一致 → 重跑 `patch_classes.py` 或手工补清单。
 - 症状：zip 里混进旧类 → `build/` 没清干净 → 清空 `build/` 重跑整条流程。

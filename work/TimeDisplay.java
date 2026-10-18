@@ -64,6 +64,6 @@ extends GuiComponent {
     private String getTimeAndDateString(int minutes, Calendar calendar) {
         int hours = calendar.getTimeHours();
         String time = (hours < 10 ? "0" + hours : Integer.valueOf(hours)) + ":" + (minutes < 10 ? "0" + minutes : Integer.valueOf(minutes));
-        return "第" + calendar.getYear() + "年,第" + calendar.getDay() + "天 - " + time;
+        return "第" + calendar.getYear() + "年，第" + calendar.getDay() + "天 - " + time;
     }
 }

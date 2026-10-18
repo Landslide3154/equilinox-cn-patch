@@ -4,7 +4,9 @@ import os
 import shutil
 import zipfile
 
-BASE = r"D:\code\equilinox"
+from version import GAME_VERSION, PATCH_VERSION
+
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATCH_SRC = os.path.join(BASE, "build")
 PACKAGE = os.path.join(BASE, "发布", "Equilinox汉化补丁")
 
@@ -16,6 +18,7 @@ ENTRIES = [
     "res/guis/fonts/segoeUI.fnt",
     "res/guis/fonts/segoeUI.png",
     "utils/MyFile.class",
+    "toolbox/Maths.class",
     "fontRendering/Word.class",
     "fontRendering/Line.class",
     "fontRendering/TextLoader.class",
@@ -29,18 +32,22 @@ with open(os.path.join(BASE, "work", "changed_classes.txt"), encoding="utf-8") a
 
 def write_gbk(path, text):
     text = text.replace("\r\n", "\n").replace("\n", "\r\n")
+    try:
+        data = text.encode("gbk")
+    except UnicodeEncodeError as exc:
+        raise SystemExit("%s is not representable in GBK: %s" % (path, exc))
     with open(path, "wb") as f:
-        f.write(text.encode("gbk", errors="replace"))
+        f.write(data)
 
 
 INSTALL_BAT = r"""@echo off
 chcp 936 >nul
 setlocal enabledelayedexpansion
-title Equilinox 简体中文汉化补丁 v6 - 安装
+title Equilinox 简体中文汉化补丁 @VERSION@ - 安装
 
 echo ==================================================
-echo    Equilinox 简体中文汉化补丁 v6
-echo    适用版本：Steam 版 Equilinox 1.7.2
+echo    Equilinox 简体中文汉化补丁 @VERSION@
+echo    适用版本：Steam 版 Equilinox @GAME_VERSION@
 echo ==================================================
 echo.
 
@@ -81,10 +88,10 @@ if not exist "%GAME_DIR%\EquilinoxWindows.jar.orig.bak" (
 )
 
 echo [..] 正在合成汉化 jar（请稍候）...
-powershell -NoProfile -ExecutionPolicy Bypass -Command "& { $g = '%GAME_DIR%'; $p = '%~dp0patch'; Add-Type -AssemblyName System.IO.Compression.FileSystem; $orig = Join-Path $g 'EquilinoxWindows.jar'; $tmp = Join-Path $env:TEMP ('EquilinoxCN_' + [guid]::NewGuid().ToString('N') + '.jar'); Copy-Item $orig $tmp -Force; $zip = [System.IO.Compression.ZipFile]::Open($tmp, 'Update'); Get-ChildItem -Path $p -Recurse -File | ForEach-Object { $rel = $_.FullName.Substring($p.Length + 1).Replace('\','/'); $e = $zip.GetEntry($rel); if ($e) { $e.Delete() }; $ne = $zip.CreateEntry($rel, [System.IO.Compression.CompressionLevel]::Optimal); $in = [System.IO.File]::OpenRead($_.FullName); $out = $ne.Open(); $in.CopyTo($out); $out.Close(); $in.Close() }; $zip.Dispose(); Copy-Item $tmp $orig -Force; Remove-Item $tmp -Force }"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$ErrorActionPreference='Stop'; $g='%GAME_DIR%'; $p='%~dp0patch'; Add-Type -AssemblyName System.IO.Compression.FileSystem; $orig=Join-Path $g 'EquilinoxWindows.jar'; $tmp=Join-Path $env:TEMP ('EquilinoxCN_' + [guid]::NewGuid().ToString('N') + '.jar'); try { Copy-Item $orig $tmp -Force; $zip=[System.IO.Compression.ZipFile]::Open($tmp,'Update'); try { Get-ChildItem -Path $p -Recurse -File | ForEach-Object { $rel=$_.FullName.Substring($p.Length+1).Replace('\','/'); $e=$zip.GetEntry($rel); if ($e) { $e.Delete() }; $ne=$zip.CreateEntry($rel,[System.IO.Compression.CompressionLevel]::Optimal); $in=[System.IO.File]::OpenRead($_.FullName); $out=$ne.Open(); $in.CopyTo($out); $out.Close(); $in.Close() } } finally { $zip.Dispose() }; Copy-Item $tmp $orig -Force; $check=[System.IO.Compression.ZipFile]::OpenRead($orig); try { $missing=@(); Get-ChildItem -Path $p -Recurse -File | ForEach-Object { $rel=$_.FullName.Substring($p.Length+1).Replace('\','/'); if (-not $check.GetEntry($rel)) { $missing += $rel } }; if ($missing.Count -gt 0) { throw ('Missing entries: ' + ($missing -join ', ')) } } finally { $check.Dispose() } } catch { Write-Host ('ERROR: ' + $_.Exception.Message); exit 1 } finally { if ($tmp -and (Test-Path $tmp)) { Remove-Item $tmp -Force -ErrorAction SilentlyContinue } }; exit 0"
 if errorlevel 1 (
     echo.
-    echo 错误：合成汉化 jar 失败，请确认系统为 Windows 10/11 且已关闭游戏。
+    echo 错误：合成汉化 jar 失败。请先完全关闭游戏；若游戏装在 Program Files 下，请右键“以管理员身份运行”。
     pause
     exit /b 1
 )
@@ -103,13 +110,13 @@ if exist "%GAME_DIR%\Equilinox_0_Saves\" (
         )
     )
 )
-if !RENAMED! gtr 0 echo [OK] 已将 !RENAMED! 个默认存档名改为"存档 N"
+if !RENAMED! gtr 0 echo [OK] 已将 !RENAMED! 个默认存档名改为“存档 N”
 
 echo.
 echo ==================================================
 echo    汉化安装完成！
-echo    启动游戏即可看到中文界面（左下角显示"汉化 v6"）。
-echo    如需恢复英文原版，运行"恢复原版.bat"。
+echo    启动游戏即可看到中文界面（左下角显示“汉化 @VERSION@”）。
+echo    如需恢复英文原版，运行“恢复原版.bat”。
 echo ==================================================
 echo.
 pause
@@ -178,30 +185,32 @@ exit /b 0
 """
 
 
-README_TXT = """Equilinox 简体中文汉化补丁 v6
+README_TXT = """Equilinox 简体中文汉化补丁 @VERSION@
 ========================================
 
 【补丁内容】
   · 全部界面文本、任务、帮助、物种名称与描述汉化
   · 内置中文字体：方正准圆（圆体，与英文 Gill Sans 风格协调）
-  · 字体渲染优化：16 倍超采样 + mipmap，有效消除锯齿，
-    文字不发虚不变细，小字清晰可读
+  · 字体渲染优化：16 倍超采样，关闭 mipmap 以避免图集相邻
+    字形渗色，文字不发虚不变细，小字清晰可读
   · 修复长中文文本崩溃、修复文字换行多余空格
   · 修复文字边缘杂点/细线
-  · 底部时间显示格式：第1年,第1天 - 09:45
-  · 语言选项显示"汉语"，默认存档名显示"存档 N"
+  · 底部时间显示格式：第1年，第1天 - 09:45
+  · 数字按中文习惯四位分组（如 12,6297；2000 不带逗号）
+  · 语言选项显示“汉语”，默认存档名显示“存档 N”
+  · 翻译文本与构建脚本采用 MIT 许可，LICENSE 随包附带
 
 【系统要求】
   · Windows 10 / 11（需自带 PowerShell）
-  · Steam 版 Equilinox（游戏版本 1.7.2）
+  · Steam 版 Equilinox（游戏版本 @GAME_VERSION@）
 
 【安装方法】
   1. 解压本压缩包到任意位置（路径建议不要有中文）
   2. 确保游戏已完全关闭
   3. 双击运行「安装汉化.bat」
   4. 程序会自动查找游戏目录；如未找到，按提示手动输入
-  5. 等待提示"汉化安装完成"，然后启动游戏
-  6. 主菜单左下角显示"汉化 v6"即表示安装成功
+  5. 等待提示“汉化安装完成”，然后启动游戏
+  6. 主菜单左下角显示“汉化 @VERSION@”即表示安装成功
 
 【恢复英文原版】
   运行「恢复原版.bat」，或把游戏目录下的
@@ -212,7 +221,7 @@ README_TXT = """Equilinox 简体中文汉化补丁 v6
   A: 手动输入游戏安装目录（包含 EquilinoxWindows.jar 的文件夹）。
 
   Q: 安装后没有变化 / 仍显示英文？
-  A: 确认主菜单左下角是否有"汉化 v6"。没有则说明未安装成功，
+  A: 确认主菜单左下角是否有“汉化 @VERSION@”。没有则说明未安装成功，
      请重新运行安装脚本。
 
   Q: Steam 更新或验证文件完整性后变回英文？
@@ -221,16 +230,20 @@ README_TXT = """Equilinox 简体中文汉化补丁 v6
   Q: 杀毒软件报毒？
   A: 补丁会修改游戏 jar 文件，可能被误报，请添加信任。
 
-  Q: 安装前存档里的"Save 1"会被改成"存档 1"吗？
-  A: 会。默认存档文件会被重命名为"存档 1"（仅默认命名
+  Q: 安装前存档里的“Save 1”会被改成“存档 1”吗？
+  A: 会。默认存档文件会被重命名为“存档 1”（仅默认命名
      Save_数字 的存档），恢复原版时会改回。
 
 【备份说明】
   安装时自动把原版文件备份为：
-  游戏目录\EquilinoxWindows.jar.orig.bak
+  游戏目录\\EquilinoxWindows.jar.orig.bak
 
 祝你玩得愉快！
 """
+
+
+def render(text):
+    return text.replace("@VERSION@", PATCH_VERSION).replace("@GAME_VERSION@", GAME_VERSION)
 
 
 def main():
@@ -242,20 +255,27 @@ def main():
     patch_dir = os.path.join(PACKAGE, "patch")
     os.makedirs(patch_dir, exist_ok=True)
     copied = 0
+    missing = []
     for rel in ENTRIES:
         src = os.path.join(PATCH_SRC, rel.replace("/", os.sep))
         dst = os.path.join(patch_dir, rel.replace("/", os.sep))
         if not os.path.exists(src):
-            print("MISSING:", rel)
+            missing.append(rel)
             continue
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         shutil.copy2(src, dst)
         copied += 1
-    write_gbk(os.path.join(PACKAGE, "安装汉化.bat"), INSTALL_BAT)
-    write_gbk(os.path.join(PACKAGE, "恢复原版.bat"), RESTORE_BAT)
-    write_gbk(os.path.join(PACKAGE, "使用说明.txt"), README_TXT)
+    if missing:
+        raise SystemExit("MISSING BUILD FILES:\n  " + "\n  ".join(missing))
+    write_gbk(os.path.join(PACKAGE, "安装汉化.bat"), render(INSTALL_BAT))
+    write_gbk(os.path.join(PACKAGE, "恢复原版.bat"), render(RESTORE_BAT))
+    write_gbk(os.path.join(PACKAGE, "使用说明.txt"), render(README_TXT))
+    license_path = os.path.join(BASE, "LICENSE")
+    if not os.path.exists(license_path):
+        raise SystemExit("missing LICENSE")
+    shutil.copy2(license_path, os.path.join(PACKAGE, "LICENSE"))
 
-    zip_path = os.path.join(BASE, "发布", "Equilinox汉化补丁_v6.zip")
+    zip_path = os.path.join(BASE, "发布", "Equilinox汉化补丁_%s.zip" % PATCH_VERSION)
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
         for root, dirs, files in os.walk(PACKAGE):
             for fn in files:

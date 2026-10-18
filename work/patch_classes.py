@@ -6,7 +6,7 @@ import struct
 
 import patch_strings
 
-BASE = r"D:\code\equilinox"
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(BASE, "jar")
 DST = os.path.join(BASE, "build")
 
@@ -101,9 +101,47 @@ def patch_class(path, replacements):
     return rebuild(header, count, entries, tail)
 
 
+def validate_maps():
+    """Fail the build when a replacement never hits the class it names."""
+    all_contents = set()
+    class_contents = {}
+    for root, dirs, files in os.walk(SRC):
+        for fn in files:
+            if not fn.endswith(".class"):
+                continue
+            full = os.path.join(root, fn)
+            rel = os.path.relpath(full, SRC).replace("\\", "/")
+            try:
+                with io.open(full, "rb") as f:
+                    data = f.read()
+                _, entries, _ = parse_pool(data)
+            except Exception as exc:
+                raise SystemExit("cannot parse %s: %s" % (rel, exc))
+            contents = {content for tag, raw, content in entries if tag == 1}
+            class_contents[rel] = contents
+            all_contents |= contents
+
+    dead_global = sorted(k for k in patch_strings.STRING_MAP if k not in all_contents)
+    dead_class = []
+    for rel, mapping in patch_strings.CLASS_MAP.items():
+        if rel not in class_contents:
+            dead_class.append("%s (class not found)" % rel)
+            continue
+        missing = sorted(k for k in mapping if k not in class_contents[rel])
+        if missing:
+            dead_class.append("%s: %r" % (rel, missing))
+    if dead_global or dead_class:
+        msg = []
+        if dead_global:
+            msg.append("STRING_MAP has no match: %r" % dead_global)
+        if dead_class:
+            msg.append("CLASS_MAP has no match: %s" % "; ".join(dead_class))
+        raise SystemExit("\n".join(msg))
+
+
 def main():
+    validate_maps()
     changed_files = []
-    replaced_count = 0
     for root, dirs, files in os.walk(SRC):
         for fn in files:
             if not fn.endswith(".class"):
@@ -124,13 +162,9 @@ def main():
             with io.open(dst, "wb") as f:
                 f.write(new_data)
             changed_files.append(rel)
-            # count actual replaced strings
-            for old, new in replacements.items():
-                if old.encode("utf-8") in new_data:
-                    replaced_count += 1
     print("patched %d class files" % len(changed_files))
     with io.open(os.path.join(BASE, "work", "changed_classes.txt"), "w", encoding="utf-8") as f:
-        f.write("\n".join(sorted(changed_files)))
+        f.write("\n".join(sorted(changed_files)) + "\n")
 
 
 if __name__ == "__main__":

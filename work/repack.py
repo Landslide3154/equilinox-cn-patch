@@ -3,7 +3,7 @@ import os
 import shutil
 import zipfile
 
-base = r"D:\code\equilinox"
+base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 original = os.path.join(base, "original", "EquilinoxWindows_original.jar")
 dest = os.path.join(base, "build", "EquilinoxWindows.jar")
 
@@ -21,6 +21,8 @@ for n in ("segoeUI.fnt", "segoeUI.png", "gill3.fnt", "gill3.png"):
     add("res/guis/fonts/" + n, os.path.join(base, "build", "res", "guis", "fonts", n))
 # patched MyFile
 add("utils/MyFile.class", os.path.join(base, "build", "utils", "MyFile.class"))
+# four-digit number grouping
+add("toolbox/Maths.class", os.path.join(base, "build", "toolbox", "Maths.class"))
 # recompiled font-layout classes (CJK line wrapping fix)
 add("fontRendering/Word.class", os.path.join(base, "build", "fontRendering", "Word.class"))
 add("fontRendering/Line.class", os.path.join(base, "build", "fontRendering", "Line.class"))
@@ -30,13 +32,18 @@ add("fontRendering/SegoeCalculator.class", os.path.join(base, "build", "fontRend
 # recompiled time display (format: 第N年,第N天 - HH:MM)
 add("bottomBar/TimeDisplay.class", os.path.join(base, "build", "bottomBar", "TimeDisplay.class"))
 # patched classes
+missing = []
 with io.open(os.path.join(base, "work", "changed_classes.txt"), encoding="utf-8") as f:
     for rel in f.read().splitlines():
+        if not rel.strip():
+            continue
         p = os.path.join(base, "build", rel.replace("/", os.sep))
         if os.path.exists(p):
             add(rel, p)
         else:
-            print("MISSING build file:", rel)
+            missing.append(rel)
+if missing:
+    raise SystemExit("MISSING build files:\n  " + "\n  ".join(missing))
 
 zin = zipfile.ZipFile(original, "r")
 zout = zipfile.ZipFile(dest, "w", allowZip64=True)

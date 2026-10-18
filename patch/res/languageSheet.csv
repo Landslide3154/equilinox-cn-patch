@@ -218,7 +218,7 @@ ID;Description;English;Testing
 224;Wheat Name;小麦;TestVal224
 225;Wheat Description;一种结有营养种子的草本植物。这种植物只能在低海拔的水边生长，并且更喜欢多石的地形。它是传播草原生物群系的好帮手，种子和植株本身都能为许多动物物种提供食物。;TestVal225
 226;Wheat Task Name;小麦培育者;TestVal226
-227;Wheat task description;你可以利用现有的野生动植物来解锁新物种！在世界中选择一丛草，进入 进化 标签。然后可以支付一些 DP 开始进化小麦物种。进化过程需要满足一定的条件——在这里你需要附近有一些石块。;TestVal227
+227;Wheat task description;你可以利用现有的野生动植物来解锁新物种！在世界中选择一丛草，进入 进化 标签。然后可以支付一些 dp 开始进化小麦物种。进化过程需要满足一定的条件——在这里你需要附近有一些石块。;TestVal227
 228;Sheep Name;绵羊;TestVal228
 229;Sheep Description;这种可爱毛茸茸的动物喜欢四处游荡吃草，如果找到水果的话也会吃！绵羊还喜欢在夜间睡觉，而且经常被掠食者捕猎。这是 Equilinox 中最基础的生物之一。;TestVal229
 230;Task Name;基因改造;TestVal230
@@ -514,7 +514,7 @@ ID;Description;English;Testing
 520;Stats Tool Tip Title;统计数据;TestVal520
 521;Stats Tool Tip Desc;关于这株植物/这只动物健康状况和当前状态的统计数据。;TestVal521
 522;Evolve Tool Tip;进化;TestVal522
-523;Evolve Tool Tip;开始新的进化过程以解锁新物种的选项。选择你想解锁的物种，如果所有条件都满足，就可以支付一些 DP 开始进化过程。;TestVal523
+523;Evolve Tool Tip;开始新的进化过程以解锁新物种的选项。选择你想解锁的物种，如果所有条件都满足，就可以支付一些 dp 开始进化过程。;TestVal523
 524;Actions Tool Tip;操作;TestVal524
 525;Actions Tool Tip;可对该生物执行的各种操作。;TestVal525
 526;Traits Tool Tip;特性;TestVal526
@@ -545,7 +545,7 @@ ID;Description;English;Testing
 551;Eating Requirement, $0$ = food type;已吃掉 $0$;TestVal551
 552;Eating Requirement, $0$ = animal, $1$ = count, $2$ = food;让一只 $0$ 吃掉 $1$ 个 $2$;TestVal552
 553;Apple Every Day Task;每天一个苹果;TestVal553
-554;Apple Every Day Task;这是一个可重复任务！你可以一遍又一遍地完成它，每次都能获得奖励。在世界中多放些苹果树，开始种植苹果，换取更稳定的 DP 收入！;TestVal554
+554;Apple Every Day Task;这是一个可重复任务！你可以一遍又一遍地完成它，每次都能获得奖励。在世界中多放些苹果树，开始种植苹果，换取更稳定的 dp 收入！;TestVal554
 555;Breed Req, $0$ = species;已产出 $0$;TestVal555
 556;Breed Req, $0$ = count, $1$ = species;产出 $0$ 个 $1$;TestVal556
 557;Apples Req;已产出的苹果;TestVal557
@@ -658,9 +658,9 @@ ID;Description;English;Testing
 664;Cutting Tree Requirement, 0 = count;已砍伐 $0$ 棵树;TestVal664
 665;Cutting Tree Requirement, 0 = count;让一些海狸砍倒 $0$ 棵树;TestVal665
 666;Tree Cutting Task Name;伐木节奏;TestVal666
-667;Tree Cutting Task Desc;我试图为这个标题编一个数学笑话。它既像对数（logarithm），又像伐木者的节奏（logger rhythm），因为这个任务就是要让海狸进入良好的伐木节奏。也许我想太多了。这是一个可重复任务，所以每次完成都能获得大量 DP。砍砍砍！;TestVal667
+667;Tree Cutting Task Desc;我试图为这个标题编一个数学笑话。它既像对数（logarithm），又像伐木者的节奏（logger rhythm），因为这个任务就是要让海狸进入良好的伐木节奏。也许我想太多了。这是一个可重复任务，所以每次完成都能获得大量 dp。砍砍砍！;TestVal667
 668;Hungry Fish Task;饥饿的鱼;TestVal668
-669;Hungry Fish Task Desc;狗鱼算是美食专家，喜欢品尝各种不同种类的鱼。这个可重复任务每次狗鱼吃掉一定数量的其他鱼时，都会为你提供 DP 奖励。;TestVal669
+669;Hungry Fish Task Desc;狗鱼算是美食专家，喜欢品尝各种不同种类的鱼。这个可重复任务每次狗鱼吃掉一定数量的其他鱼时，都会为你提供 dp 奖励。;TestVal669
 670;Butterfly Hunter;蝴蝶猎手;TestVal670
 671;Butterfly Hunter Task;那些青蛙还在饿着！确保青蛙有源源不断的蝴蝶可吃，你就有了新的多样性点数收入来源。;TestVal671
 672;Banana Farmer;香蕉农夫;TestVal672
@@ -673,12 +673,12 @@ ID;Description;English;Testing
 679;Honey Harvester Req Short;已收割的蜂蜜;TestVal679
 680;Honey Harvester Req;从蜂巢中收割蜂蜜;TestVal680
 681;Digging a Hole Task;挖个洞;TestVal681
-682;Digging a Hole Task;野猪想吃马铃薯！为它们提供成片的马铃薯植株让它们挖，你就能赚到更多 DP。;TestVal682
+682;Digging a Hole Task;野猪想吃马铃薯！为它们提供成片的马铃薯植株让它们挖，你就能赚到更多 dp。;TestVal682
 683;Welcome Message Title;欢迎;TestVal683
 684;Welcome Message;欢迎来到 Equilinox！点击闪烁的任务标签，按照第一个任务的指引开始游戏。;TestVal684
 685;Start Breeding Button;开始进化;TestVal685
 686;Breed requirements not met;条件未满足;TestVal686
-687;Not enough money button;DP 不足;TestVal687
+687;Not enough money button;dp 不足;TestVal687
 688;Breeding in progress message;进行中;TestVal688
 689;Species unlocked message;已解锁！;TestVal689
 690;Message to say which species this entity evolves from;由以下物种进化而来;TestVal690
@@ -711,18 +711,18 @@ ID;Description;English;Testing
 717;Help Pages;所有物种对周围环境都有一定的偏好。有些喜欢生活在特定的海拔或生物群系中，而有些可能需要某些植物或岩石的存在。你可以在 物种信息面板 中查看物种的栖息地偏好。;TestVal717
 718;Help Pages;食物与资源;TestVal718
 719;Help Pages;Equilinox 中的许多生物需要特定的资源，如食物或建筑材料。你需要确保它们有可持续的生存供给，以保持生态系统平衡。;TestVal719
-720;Help Pages;多样性点数 (DP);TestVal720
+720;Help Pages;多样性点数（dp）;TestVal720
 721;Help Pages;多样性点是游戏内货币，有多种赚取和消费方式。;TestVal721
-722;Help Pages;从动物赚取 DP;TestVal722
-723;Help Pages;赚取 DP 的一种方式是让动物在世界中生存。每只动物每分钟都会产生少量 DP。动物越快乐越健康，产生的 DP 就越多。你每分钟从动物那里赚取的 DP 总额显示在工具栏上。;TestVal723
-724;Help Pages;从任务赚取 DP;TestVal724
-725;Help Pages;完成游戏内任务是赚取 DP 的另一种方式。完成任务后你会获得一些 DP 奖励。许多任务是可重复的，这意味着你可以一遍又一遍地完成它们并每次都获得奖励。因此，这些任务可以为你提供稳定的 DP 收入。;TestVal725
+722;Help Pages;从动物赚取 dp;TestVal722
+723;Help Pages;赚取 dp 的一种方式是让动物在世界中生存。每只动物每分钟都会产生少量 dp。动物越快乐越健康，产生的 dp 就越多。你每分钟从动物那里赚取的 dp 总额显示在工具栏上。;TestVal723
+724;Help Pages;从任务赚取 dp;TestVal724
+725;Help Pages;完成游戏内任务是赚取 dp 的另一种方式。完成任务后你会获得一些 dp 奖励。许多任务是可重复的，这意味着你可以一遍又一遍地完成它们并每次都获得奖励。因此，这些任务可以为你提供稳定的 dp 收入。;TestVal725
 726;Help Pages;商店;TestVal726
-727;Help Pages;赚到一些 DP 后，你就会想花掉它！一种方式是在商店购买新物种和物品放进你的世界。点击想买的物品，然后将其放入世界即可购买。;TestVal727
+727;Help Pages;赚到一些 dp 后，你就会想花掉它！一种方式是在商店购买新物种和物品放进你的世界。点击想买的物品，然后将其放入世界即可购买。;TestVal727
 728;Help Pages;购买基因改造;TestVal728
-729;Help Pages;DP 的另一个用途是基因改造动物和植物的特性。这在 遗传学 帮助部分有更多介绍，但基本上你可以支付 DP 来基因改造一个物种的特征。;TestVal729
+729;Help Pages;dp 的另一个用途是基因改造动物和植物的特性。这在 遗传学 帮助部分有更多介绍，但基本上你可以支付 dp 来基因改造一个物种的特征。;TestVal729
 730;Help Pages;解锁新物种;TestVal730
-731;Help Pages;多样性点的最后一种用途是通过进化系统解锁新物种。要开始进化新物种，你首先需要支付 DP 费用。想了解更多，请查看 进化 帮助部分。;TestVal731
+731;Help Pages;多样性点的最后一种用途是通过进化系统解锁新物种。要开始进化新物种，你首先需要支付 dp 费用。想了解更多，请查看 进化 帮助部分。;TestVal731
 732;Help Pages;生物群系;TestVal732
 733;Help Pages;当你开始用生命填满世界时，你会注意到地形开始变色。这就是生物群系，它们由植物传播，许多不同的物种都需要它们。;TestVal733
 734;Help Pages;传播生物群系;TestVal734
@@ -740,7 +740,7 @@ ID;Description;English;Testing
 746;Help Pages;定向培育;TestVal746
 747;Help Pages;在特性标签中，你会找到定向培育该生物的选项。选择此选项会使该动物或植物成为当地的主要繁殖者。几乎所有繁殖都会涉及那株植物或那只动物，这意味着许多后代都会具有与它相似的特性。这是复制你所欣赏的特定特征的好方法。;TestVal747
 748;Help Pages;基因改造;TestVal748
-749;Help Pages;你可以花费 DP 修改繁殖过程中遗传的特性。选择 定向培育 选项后，点击某个特性旁边的按钮并选择一种改造。满意后，可以支付一些 DP 购买该改造。这些改造会在繁殖遗传特性时生效，所以结果只会体现在后代身上。;TestVal749
+749;Help Pages;你可以花费 dp 修改繁殖过程中遗传的特性。选择 定向培育 选项后，点击某个特性旁边的按钮并选择一种改造。满意后，可以支付一些 dp 购买该改造。这些改造会在繁殖遗传特性时生效，所以结果只会体现在后代身上。;TestVal749
 750;Help Pages;开始上手;TestVal750
 751;Help Pages;欢迎来到 Equilinox！本节将教你游戏的基础知识，帮助你开始创建第一批生态系统。;TestVal751
 752;Help Pages;物种商店;TestVal752
@@ -751,7 +751,7 @@ ID;Description;English;Testing
 764;Help Pages;进化条件;TestVal764
 765;Help Pages;要进化新物种，必须满足某些条件。将鼠标悬停在进化树中未发现的物种上，查看进化该物种的条件。父物种需要满足这些条件才能解锁子物种。这些条件可能是生活在特定生物群系、有特定饮食，或是某种颜色等。;TestVal765
 766;Help Pages;开始进化过程;TestVal766
-767;Help Pages;要开始进化，请在世界中点击要进化的植物或动物，进入 进化 标签。这里可以看到可以进化出哪些子物种。点击子物种旁边的箭头查看条件，如果条件满足，就可以支付一些 DP 开始进化过程！;TestVal767
+767;Help Pages;要开始进化，请在世界中点击要进化的植物或动物，进入 进化 标签。这里可以看到可以进化出哪些子物种。点击子物种旁边的箭头查看条件，如果条件满足，就可以支付一些 dp 开始进化过程！;TestVal767
 768;Help Pages;进化中;TestVal768
 769;Help Pages;开始进化过程后，会显示一个进度条。只要进化条件仍然满足，进度就会随时间慢慢增加。当进度条走满时，新物种就会诞生！;TestVal769
 770;Help Pages;新物种;TestVal770
@@ -854,7 +854,7 @@ ID;Description;English;Testing
 867;Fox Hunting Task;Equilinox 中并非所有动物都可爱可亲。有些是凶残的野兽，以猎物的血肉为食！狐狸需要吃肉，所以把它们放在有鸡或其他合适小生物的区域附近，让它们去狩猎。;TestVal867
 868;Wolf hunting task;披着羊皮的狼;TestVal868
 869;Wolf hunting task;狼饿了，羊在菜单上。在羊群区域附近创建一片狼群区域。狼会定期去狩猎抓捕羊。;TestVal869
-870;Dp per minute stat;基础每分钟 DP;TestVal870
+870;Dp per minute stat;基础每分钟 dp;TestVal870
 871;Disease Resistance stat;疾病抗性;TestVal871
 872;Age stat;年龄;TestVal872
 873;Species Evolved Notification;物种已进化！;TestVal873
@@ -967,9 +967,9 @@ ID;Description;English;Testing
 980;Trait modification increase amount label;增加;TestVal980
 981;Trait;特性;TestVal981
 982;Earning Dp task name;兑换现金;TestVal982
-983;Earning DP task description;多样性点数 (DP) 是你在 Equilinox 中的货币。你可以通过动物或完成任务赚取 DP。每只动物每分钟都会产生少量 DP，更健康、更快乐、完全长大的动物产生更多。你可以在工具栏中看到每分钟从动物那里赚取的 DP 总额。;TestVal983
-984;DP earning requirement short desc;每分钟 DP;TestVal984
-985;DP earning requirement long desc, 0 = amount;每分钟赚取超过 $0$ DP;TestVal985
+983;Earning DP task description;多样性点数（dp）是你在 Equilinox 中的货币。你可以通过动物或完成任务赚取 dp。每只动物每分钟都会产生少量 dp，更健康、更快乐、完全长大的动物产生更多。你可以在工具栏中看到每分钟从动物那里赚取的 dp 总额。;TestVal983
+984;DP earning requirement short desc;每分钟 dp;TestVal984
+985;DP earning requirement long desc, 0 = amount;每分钟赚取超过 $0$ dp;TestVal985
 986;View plant option;查看;TestVal986
 987;Honey Name;蜂蜜;TestVal987
 988;Growth Speed;生长速度;TestVal988
@@ -1010,14 +1010,14 @@ ID;Description;English;Testing
 1023;Disease Help Page Info;患病时，动物会随时间缓慢受到伤害，除非被治愈，否则最终会死亡。动物还可能感染附近的其他动物，健康状况较差的动物感染风险更高。;TestVal1023
 1024;Disease Help Page Info;治愈疾病;TestVal1024
 1025;Disease Help Page Info;受感染的动物有可能自然痊愈，环境越好，这个可能性就越高。还有一些植物可以帮助治愈动物，例如治愈花的花种或巫木树的果实。;TestVal1025
-1026;Starting Help Page Info;多样性点数 (DP);TestVal1026
-1027;Starting Help Page Info;在屏幕的最左上角，你可以看到你拥有的多样性点数。这些点数是 Equilinox 中的货币。你可以通过完成任务以及让健康快乐的动物在世界中生存来赚取 DP。DP 可以花在很多地方，例如从商店购买物品、基因改造野生动物以及进化新物种。想了解更多，请查看 多样性点数 帮助部分。;TestVal1027
+1026;Starting Help Page Info;多样性点数（dp）;TestVal1026
+1027;Starting Help Page Info;在屏幕的最左上角，你可以看到你拥有的多样性点数。这些点数是 Equilinox 中的货币。你可以通过完成任务以及让健康快乐的动物在世界中生存来赚取 dp。dp 可以花在很多地方，例如从商店购买物品、基因改造野生动物以及进化新物种。想了解更多，请查看 多样性点数 帮助部分。;TestVal1027
 1028;Starting Help Page Info;商店;TestVal1028
 1029;Starting Help Page Info;Equilinox 中有两个商店，一个卖植物，一个卖动物。点击商店中已解锁且买得起的物种，然后左键点击你想放置的位置将其放入世界。随着游戏进度推进，你会解锁越来越多的物种。;TestVal1029
 1030;Starting Help Page Info;状态面板;TestVal1030
 1031;Starting Help Page Info;在世界中放置一些植物或动物后，你可以通过点击世界中的生物来查看它们的状态。这会打开状态面板。在这里你可以找到关于动物/植物的所有统计数据，如健康、年龄、环境满意度等。你可以在 状态面板 帮助部分了解更多关于该面板其他功能的信息。;TestVal1031
 1032;Starting Help Page Info;任务;TestVal1032
-1033;Starting Help Page Info;Equilinox 中有各种可以完成的任务，它们会为你提供各种奖励，如 DP、新音乐曲目和世界的新物种。前几个任务会带你了解游戏的基础知识，跟着它们开始取得进展吧！;TestVal1033
+1033;Starting Help Page Info;Equilinox 中有各种可以完成的任务，它们会为你提供各种奖励，如 dp、新音乐曲目和世界的新物种。前几个任务会带你了解游戏的基础知识，跟着它们开始取得进展吧！;TestVal1033
 1034;Starting Help Page Info;多元化;TestVal1034
 1035;Starting Help Page Info;现在你可以开始创建自己的生态系统了！随着你取得进展，你将获得越来越多种类的动植物，并能够创建一些复杂而美丽的生态系统。只要确保它们保持平衡并处于生态平衡状态！;TestVal1035
 1036;Witch Wood Tree;巫木树;TestVal1036

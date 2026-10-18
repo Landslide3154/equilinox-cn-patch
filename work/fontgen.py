@@ -3,10 +3,17 @@ import os
 import re
 from PIL import Image, ImageDraw, ImageFont
 
-base = r"D:\code\equilinox"
+base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FONTS_SRC = os.path.join(base, "jar", "res", "guis", "fonts")
 FONTS_DST = os.path.join(base, "build", "res", "guis", "fonts")
-MSYH = r"C:\Windows\Fonts\方正准圆_GBK.ttf"
+FONT_CANDIDATES = [
+    os.environ.get("EQUILINOX_FONT"),
+    r"C:\Windows\Fonts\方正准圆_GBK.ttf",
+    os.path.join(base, "work", "方正准圆_GBK.ttf"),
+]
+FONT_PATH = next((p for p in FONT_CANDIDATES if p and os.path.exists(p)), None)
+if FONT_PATH is None:
+    raise SystemExit("font file not found; set EQUILINOX_FONT to a CJK TTF/OTF")
 
 
 def parse_fnt(path):
@@ -72,14 +79,19 @@ def generate(font_name, size, pad, baseline_line_top, atlas_w, new_chars, orig_l
     atlas.paste(orig_img, (0, 0))
 
     cursor_x = 0
-    cursor_y = 512
+    # Start below the original atlas content instead of assuming 512.  The
+    # original gill3/segoeUI atlases are 512x512 today, but hard-coding that
+    # silently overwrites glyphs if the source atlas changes.
+    cursor_y = max((v["y"] + v["height"] for v in orig_chars.values()), default=0) + 2
     row_h = 0
     placed = []
+    missing = []
     for cid in sorted(new_chars):
         ch = chr(cid)
-        res = render_char(ch, MSYH, size, pad, baseline_line_top)
+        res = render_char(ch, FONT_PATH, size, pad, baseline_line_top)
         if res is None:
-            print("skip char", hex(ord(ch)))
+            if not ch.isspace():
+                missing.append(ch)
             continue
         img, metrics = res
         cw, chh = img.size
@@ -106,6 +118,9 @@ def generate(font_name, size, pad, baseline_line_top, atlas_w, new_chars, orig_l
         cursor_x += cw
         row_h = max(row_h, chh)
 
+    if missing:
+        raise SystemExit("font %s cannot render: %r" % (font_name, "".join(missing)))
+
     os.makedirs(FONTS_DST, exist_ok=True)
     atlas.save(os.path.join(FONTS_DST, font_name + ".png"))
 
@@ -131,13 +146,15 @@ def generate(font_name, size, pad, baseline_line_top, atlas_w, new_chars, orig_l
             "char id=%d   x=%d     y=%d     width=%d     height=%d     xoffset=%d     yoffset=%d    xadvance=%d     page=0  chnl=0 " % (
                 cid, m["x"], m["y"], m["width"], m["height"], m["xoffset"], m["yoffset"], m["xadvance"]))
     with io.open(os.path.join(FONTS_DST, font_name + ".fnt"), "w", encoding="ascii", newline="") as f:
-        f.write("\r\n".join(header_new) + "\r\n")
+        f.write("\r\n".join(line.rstrip() for line in header_new) + "\r\n")
     print("%s: placed %d new glyphs, atlas %dx%d" % (font_name, len(placed), atlas_w, atlas_w))
     return True
 
 
 def main():
-    # collect needed chars: translations + patched strings
+    # Collect every character that can reach the game text renderer:
+    # language sheet, global/class string maps, and the hand-written Java
+    # sources (TimeDisplay et al. contain Chinese literals of their own).
     import patch_strings
     texts = []
     with io.open(os.path.join(base, "build", "res", "languageSheet.csv"), "r", encoding="utf-8") as f:
@@ -145,8 +162,14 @@ def main():
             parts = line.split(";")
             if len(parts) >= 3 and parts[0].isdigit():
                 texts.append(parts[2])
-    for old, new in patch_strings.STRING_MAP.items():
+    for new in patch_strings.STRING_MAP.values():
         texts.append(new)
+    for mapping in patch_strings.CLASS_MAP.values():
+        texts.extend(mapping.values())
+    for fn in sorted(os.listdir(os.path.join(base, "work"))):
+        if fn.endswith(".java"):
+            with io.open(os.path.join(base, "work", fn), "r", encoding="utf-8") as f:
+                texts.append("".join(ch for ch in f.read() if ord(ch) > 127))
     needed = set()
     for t in texts:
         for ch in t:

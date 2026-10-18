@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 """String replacements for hardcoded UI strings in Equilinox classes."""
 
+from version import GAME_VERSION, PATCH_VERSION
+
 # Safe to replace globally across all game classes (exact constant match).
+# Only use keys that cannot be field/local-variable names: short identifiers
+# such as "dp" or "m" must go into CLASS_MAP instead.
 STRING_MAP = {
     "Ability": "能力",
     "Abiltity": "能力",
@@ -55,13 +59,13 @@ STRING_MAP = {
     "Have Meerkats dig 5 holes": "让猫鼬挖出 5 个洞穴",
     "Full-Screen": "全屏",
     "Locked!": "未解锁！",
-    "Click for more info...": "点击查看更多信息...",
+    "Click for more info...": "点击查看更多信息……",
     "Colour:": "颜色：",
     "Cheat!": "作弊！",
     "All species are now unlocked.": "所有物种现已解锁。",
     "ERROR - NAME": "错误 - 名称",
     "No Name": "未命名",
-    "Version 1.7.2": "汉化 v6",
+    "Version " + GAME_VERSION: "汉化 " + PATCH_VERSION,
     "English": "汉语",
     "SAVING ERROR!": "保存错误！",
     "The autosave failed. Try saving manually, but if the problem continues contact thinmatrix@gmail.com":
@@ -84,16 +88,25 @@ STRING_MAP = {
     "An error has caused the program to crash, sorry for the inconvenience! Please email the dev at thinmatrix@gmail.com and copy-paste the error message below:":
         "发生错误导致程序崩溃，非常抱歉给您带来不便！请发送邮件给开发者 thinmatrix@gmail.com，并将下面的错误信息复制粘贴到邮件中：",
     "In Simulation Mode you have unlimited DP and access to any species that you've previously unlocked in normal mode. Great for trying things out with your species.":
-        "在模拟模式中，你拥有无限的 DP，可以使用任何你在普通模式中解锁过的物种。非常适合尝试各种实验。",
+        "在模拟模式中，你拥有无限的 dp，可以使用任何你在普通模式中解锁过的物种。非常适合尝试各种实验。",
     "Unlimited DP and all species are unlocked. Most simulation aspects are turned off (there's no health, growth, hunger, breeding, or environmental requirements). Good for creating nice looking low-poly scenes.":
-        "无限的 DP，所有物种全部解锁。大部分模拟机制被关闭（没有健康、生长、饥饿、繁殖或环境需求）。适合打造漂亮的多边形场景。",
+        "无限的 dp，所有物种全部解锁。大部分模拟机制被关闭（没有健康、生长、饥饿、繁殖或环境需求）。适合打造漂亮的多边形场景。",
+    # Chinese UI labels use the full-width colon; the HH:MM clock keeps the
+    # half-width colon and is excluded below.  Some labels append ": ",
+    # so cover that variant too (the space is dropped).
+    ":": "：",
+    ": ": "：",
 }
 
 # Per-class replacements for ambiguous constants.
+# The environment strings live in the anonymous inner classes, not in the
+# outer loader class: "Not " is in $3, while "m" and "m " are in $5.
 CLASS_MAP = {
-    "environment/EnvironmentComponentLoader.class": {
+    "environment/EnvironmentComponentLoader$3.class": {
         "Not ": "非",
-        "m ": "米",
+    },
+    "environment/EnvironmentComponentLoader$5.class": {
+        "m ": "米 ",
         "m": "米",
     },
     "saves/SaveSlot.class": {
@@ -102,7 +115,23 @@ CLASS_MAP = {
     "materials/NaturalColoursGui.class": {
         "to": "至",
     },
+    "toolbar/BiomePickerGui.class": {
+        "m": "米",
+    },
+    "taskUi/TaskInformationGui.class": {
+        " (Repeatable)": "（可重复）",
+    },
+    "shops/LockedRequirementUi.class": {
+        "Species must be unlocked in the \"Normal\" game mode first.":
+            "需要先在“普通”游戏模式中解锁该物种。",
+    },
+    "evolutionUi/EvolveProgressUi.class": {
+        " (": "（",
+        " dp)": " dp）",
+    },
 }
 
 # Classes excluded from global string replacement.
-EXCLUDE = ("org/lwjgl", "de/matthiasmann", "com/jcraft", "org/ninjacave")
+# TimeDisplay keeps the half-width HH:MM colon; it is compiled separately.
+EXCLUDE = ("org/lwjgl", "de/matthiasmann", "com/jcraft", "org/ninjacave",
+           "bottomBar/TimeDisplay.class")
