@@ -23,9 +23,7 @@ Steam 游戏 **Equilinox**（ThinMatrix）的简体中文补丁：**Java 字节�
 | 产出发布目录与 zip | `python work/build_patch_small.py` |
 | 发布前一致性校验 | `python work/verify.py` |
 
-- 编译必须走 `compile_patched.py`：它把 `*_patched.java` 复制成真实类名，并固定 `javac --release 8`；直接 `javac work/Line_patched.java` 会因 public 类名与文件名不一致而失败，用默认 `javac` 还会产出 Java 8 加载不了的 major 69。
-- 只有改逻辑才写 `.java`；纯文本替换改 `work/patch_strings.py` 的映射表即可。
-- 脚本之间**不互相串联**，但顺序固定：`merge_language` → `patch_classes` → `patch_maths` → `compile_patched` → `fontgen` → `repack` / `build_patch_small` → `verify`。改完补丁进游戏没变化多半是漏跑某步。
+- 编译要求（必须走 `compile_patched.py`）、改逻辑 vs 改文本、脚本固定顺序与漏跑排查 → [docs/build-pipeline.md](docs/build-pipeline.md)
 
 ## 3. 硬约束（必须 / 禁止）
 
