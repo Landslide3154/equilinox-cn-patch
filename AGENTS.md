@@ -48,10 +48,7 @@ Steam 游戏 **Equilinox**（ThinMatrix）的简体中文补丁：**Java 字节�
 
 ## 6. 已知坑
 
-- **字体源**：换机器没装「方正准圆_GBK」时用 `EQUILINOX_FONT` 指向任一中文字体（本机路径见 `AGENTS.local.md`），否则 `fontgen.py` 直接退出。构建脚本路径按 `__file__` 推导。
-- 症状：游戏内文字乱码 → 先核对 `build/res/languageSheet.csv` 与发布包里那份（`发布/Equilinox汉化补丁/patch/res/languageSheet.csv`）的编码是否被编辑器改过 → 重新生成覆盖后实机确认。
-- 症状：新补丁类没进包 → `changed_classes.txt` 与 `build/` 实际内容不一致 → 重跑 `patch_classes.py` 或手工补清单。
-- 症状：zip 里混进旧类 → `build/` 没清干净 → 清空 `build/` 重跑整条流程。
+- 字体源与三类症状排查（文字乱码 / 补丁类没进包 / zip 混进旧类）→ [docs/known-issues.md](docs/known-issues.md)
 
 ## 7. 指针
 
